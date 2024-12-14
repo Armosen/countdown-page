@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>距离双12活动结束倒计时</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: flex-end; /* 对齐到底部 */
+            height: 100vh;
+            background-image: url('双十二07.jpg'); /* 设置背景图片 */
+            background-size: cover; /* 使背景图片覆盖整个屏幕 */
+            background-position: center; /* 设置背景图片居中 */
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .countdown-container {
+            position: absolute; /* 使用绝对定位 */
+            bottom: 20px; /* 距离底部20px */
+            left: 20px; /* 距离左边20px */
+            background-color: rgba(0, 0, 0, 0.5); /* 添加半透明背景 */
+            padding: 20px 35px;
+            border-radius: 10px;
+            text-align: left;
+            color: white(243, 241, 241);
+            font-size: 64px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+        }
+        .countdown {
+            font-size: 64px; /* 增加字体大小 */
+            color: rgb(0, 0, 0); /* 字体颜色 */
+            bottom: 0px; /* 距离底部0px */
+            left: 0px; /* 距离左边0px */
+            padding: 50px 70px;
+            border-radius: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown" id="countdown">00:00:00</div>
+
+    <script>
+        // 设置倒计时结束的时间（例如：2023年12月31日 23:59:59）
+        const countdownDate = new Date('December 16, 2024 23:59:59').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // 计算天数、小时、分钟和秒数
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // 显示倒计时
+            document.getElementById('countdown').innerHTML = days + ' 天 ' + hours + ' 小时 '
+                + minutes + ' 分 ' + seconds + ' 秒 ';
+
+            // 如果倒计时结束，显示消息
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = '倒计时结束！';
+            }
+        }
+
+        // 每秒更新一次倒计时
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
